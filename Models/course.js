@@ -1,12 +1,14 @@
 const mongoose=require("mongoose");
 
 const courseSchema=new mongoose.Schema({
-    CourseName:{type:String,  required:true, unique:true },
-    Title:{type:String,  required:true, unique:true },
-    Description:{type:String,  required:true, unique:true },
+    CourseName:{type:String,  required:true  },
+    
+    Description:{type:String,  required:true  },
     URL:{type:String,  required:true, unique:true },
-    Subscribers:{type:String,  required:true, unique:true }
+    Trainer:{type:String,  required:true, default:"Admin" },
+    Subscribers:{type:[String] },
+    Cost:{type:Number,default:500},
+    Duration:{type:Number,default:100 }
     
 })
-const Model=new mongoose.model("Courses",courseSchema)
-module.exports=Model;
+module.exports = mongoose.model("Course",courseSchema,"Courses");

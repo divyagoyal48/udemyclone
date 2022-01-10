@@ -1,103 +1,46 @@
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
-
-var url = "mongodb://localhost:27017/";   
-var Database = "UdemyApp";
-const express = require('express');
-var Collection = "Students";
+const mongoose=require('mongoose');
+const studentSchema = require('../Models/student');
+mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 
+module.exports.GetAllStudents=async (req,res)=>{
+console.log("asdasdasd");
+  var Results = await studentSchema.find({});
+  return Results;
+};
 
-const router= express.Router()
-const trainerSchema= require('../Models/trainer')
-module.exports.GetAllStudents=(req,res)=>{
-    try {
-      MongoClient.connect(url, function(err, db) {
-          if (err) throw err;
-          var dbo = db.db(Database);
-          dbo.collection(Collection).find({}).toArray(function(err, result) {
-          if (err) throw err;
-          
-          res.statusCode = 200;
-          res.send(result);
-          db.close();
-          });
-       });
-    } catch (err) {
-       res.statusCode=500;
-       res.send(err.message); console.error(err.message)
-
-     }
- };
-
- module.exports.Login=(req,res)=>{
+module.exports.Login=async (req,res)=>{
  
   var SearchObject = req.body;
-console.log(SearchObject);
-  
-  MongoClient.connect(url, function(err, db) {
-     if (err) throw err;
-     var dbo = db.db(Database);
-     var myquery = SearchObject;
-     dbo.collection(Collection).find(SearchObject).toArray(function(err, result) {
-        if (err) throw err;
-        
-        console.log(result);
-        res.statusCode = 200;
-        if(result.length==0) return res.send(null);
-        else res.send(result[0]);
-        db.close();
-     });
-   });
+  var Student = await studentSchema.findOne(SearchObject);
+
+        if(Student.length==0) return res.send(null);
+        else {res.statusCode = 200;res.send(Student);}
 };
 
 
 
 
 
-module.exports.SearchStudentByID=(req,res)=>{
+module.exports.SearchStudentByID=async (req,res)=>{
     var id= req.params.id;
    
-   var query=new RegExp(id, "g");
-   MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db(Database);
-      dbo.collection(Collection).find({"name": query},{ projection: {name:1 } }).limit(100).toArray(function(err, result) {
-        if (err) throw err;
-        res.send(result);
-        console.log(Number.isInteger(req.params.Limit));
-        db.close();
-      });
-    });
+    var Student = await studentSchema.findById(id);
+
+    res.send(Student);
 }
 
-module.exports.Create=(req,res)=>{
+module.exports.Create=async(req,res)=>{
     var record = req.body;
-     console.log(record);
-     delete record.REPWD;
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db(Database);
-      var myobj = record;
-      dbo.collection(Collection).insertOne(myobj, function(err, result) {
-        if (err) throw err;
-        res.send(result);
-        db.close();
-      });   
-    }); 
+    delete record.REPWD;
+    var Result =await studentSchema.create(record);
+    res.send(Result);
+
 }
 
-module.exports.Delete=(req,res)=>{
+module.exports.Delete=async(req,res)=>{
     var id = req.params.id;
-   MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db(Database);
-      var myquery = {"_id": ObjectId(id)};
-      dbo.collection(Collection).deleteOne(myquery, function(err, obj) {
-        if (err) throw err;
-        console.log(myquery);
-        res.send(obj);
-        db.close();
-      });
-    });
+
+    var Result = await studentSchema.deleteOne({"_id": id });
+    res.send(Result);
 }
