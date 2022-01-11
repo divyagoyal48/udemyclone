@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const studentSchema = require('../Models/student');
+const studentSchema = require('../models/student');
 mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 

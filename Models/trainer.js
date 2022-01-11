@@ -1,12 +1,14 @@
 const mongoose=require("mongoose");
 const { GetAllCourses } = require("../controllers/courses");
+const course=require("./course");
 
 const userSchema=new mongoose.Schema({
-    TrainerName:{type:String,  required:true, unique:true },
-    Email:{type:String,  required:true, unique:true },
-    Mobile:{type:String,  required:true, unique:true },
-    PWD:{type:String,  required:true, unique:true },
-    COurses:{type:[String]}
+    trainerName:{type:String,  required:true, unique:true },
+    email:{type:String,  required:true, unique:true },
+    mobile:{type:String,  required:true, unique:true },
+    pwd:{type:String,  required:true, unique:true },
+    courses:[{type: Schema.type.ObjectId, ref: 'course' }],
+    
     
 })
 const Model=new mongoose.model("Trainers",userSchema)

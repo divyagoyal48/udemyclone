@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const courseSchema = require('../Models/course');
+const courseSchema = require('../models/course');
 mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 module.exports.GetAllSubscriptions=async(req,res)=>{

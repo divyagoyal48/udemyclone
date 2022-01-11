@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const Course = require('../Models/course');
+const Course = require('../models/course');
 mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 
@@ -113,5 +113,3 @@ module.exports.Delete=async (req,res)=>{
   res.send(Result);
 
 }
-
-
