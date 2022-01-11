@@ -7,7 +7,7 @@ const studentSchema=new mongoose.Schema({
     email:{type:String },
     mobile:{type:String },
     pwd:{type:String },
-    enrollCourses: [{type: Schema.type.ObjectId, ref: 'course' }]
+    enrollCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'course' }]
 });
 
 module.exports=mongoose.model("Student",studentSchema,"Students");
