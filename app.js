@@ -9,10 +9,10 @@ app.use(express.json());
 
 
 // -------- Adding Routings / Controllers
-const courseRoute= require('./Routes/course');
-const subscriptionRoute= require('./Routes/subscription');
-const trainerRoute= require('./Routes/trainer');
-const studentRoute= require('./Routes/student');
+const courseRoute= require('./routes/course');
+const subscriptionRoute= require('./routes/subscription');
+const trainerRoute= require('./routes/trainer');
+const studentRoute= require('./routes/student');
 
 
 app.use("/courses",courseRoute);
