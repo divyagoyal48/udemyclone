@@ -1,9 +1,9 @@
 const mongoose=require('mongoose');
 const Course = require('../models/course');
-mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 
-module.exports.GetAllCourses=async (req,res)=>{
+
+module.exports.getAllCourses=async (req,res)=>{
   try {
    
     var Courses =await  Course.find({});
@@ -17,7 +17,7 @@ module.exports.GetAllCourses=async (req,res)=>{
 };
 
 
-module.exports.GetAllCoursesOfTrainer=async (req,res)=>{
+module.exports.getAllCoursesOfTrainer=async (req,res)=>{
   
   var TrainerID=req.params.TrainerID;
   console.log(TrainerID);
@@ -39,7 +39,7 @@ module.exports.GetAllCoursesOfTrainer=async (req,res)=>{
 };
 
 
-module.exports.Subscribe=async (req,res)=>{
+module.exports.subscribe=async (req,res)=>{
   var CourseID= req.params.CourseID;
   var EmailID= req.params.EmailID;
   
@@ -59,7 +59,7 @@ module.exports.Subscribe=async (req,res)=>{
 }
 
 
-module.exports.UnSubscribe=async(req,res)=>{
+module.exports.unSubscribe=async(req,res)=>{
   var CourseID= req.params.CourseID;
   var EmailID= req.params.EmailID;
  
@@ -79,7 +79,7 @@ module.exports.UnSubscribe=async(req,res)=>{
 
 
 
-module.exports.SearchCourseByName = async (req,res)=>{
+module.exports.searchCourseByName = async (req,res)=>{
    var Keyword= req.params.Keyword;
    console.log(req.params.Keyword);
    var query=new RegExp(Keyword, 'i');
@@ -89,14 +89,14 @@ module.exports.SearchCourseByName = async (req,res)=>{
        
 }
  
-module.exports.SearchCourseByID=async(req,res)=>{
+module.exports.searchCourseByID=async(req,res)=>{
     var id= req.params.id;
     console.log(id);
     var Result = await Course.findById(id);
     res.send(Result);
 }
 
-module.exports.Create=async (req,res)=>{
+module.exports.create=async (req,res)=>{
     var record = req.body; 
     console.log(record);
     var Result = await Course.create(record);
@@ -105,7 +105,7 @@ module.exports.Create=async (req,res)=>{
 }
 
 
-module.exports.Delete=async (req,res)=>{
+module.exports.delete=async (req,res)=>{
 
   var id = req.params.id;
   console.log(id);

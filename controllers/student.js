@@ -1,15 +1,15 @@
 const mongoose=require('mongoose');
 const studentSchema = require('../models/student');
-mongoose.connect("mongodb://localhost:27017/UdemyApp");
 
 
-module.exports.GetAllStudents=async (req,res)=>{
+
+module.exports.getAllStudents=async (req,res)=>{
 console.log("asdasdasd");
   var Results = await studentSchema.find({});
   return Results;
 };
 
-module.exports.Login=async (req,res)=>{
+module.exports.login=async (req,res)=>{
  
   var SearchObject = req.body;
   var Student = await studentSchema.findOne(SearchObject);
@@ -22,7 +22,7 @@ module.exports.Login=async (req,res)=>{
 
 
 
-module.exports.SearchStudentByID=async (req,res)=>{
+module.exports.searchStudentByID=async (req,res)=>{
     var id= req.params.id;
    
     var Student = await studentSchema.findById(id);
@@ -30,7 +30,7 @@ module.exports.SearchStudentByID=async (req,res)=>{
     res.send(Student);
 }
 
-module.exports.Create=async(req,res)=>{
+module.exports.create=async(req,res)=>{
     var record = req.body;
     delete record.REPWD;
     var Result =await studentSchema.create(record);
@@ -38,7 +38,7 @@ module.exports.Create=async(req,res)=>{
 
 }
 
-module.exports.Delete=async(req,res)=>{
+module.exports.delete=async(req,res)=>{
     var id = req.params.id;
 
     var Result = await studentSchema.deleteOne({"_id": id });
