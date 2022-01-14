@@ -6,8 +6,8 @@ module.exports.getAllSubscriptions=async(req,res)=>{
     try {
 
 
-      var Result = await courseSchema.find({});
-      res.send(Result);
+      let result = await courseSchema.find({});
+      res.send(result);
       
          
     } catch (err) {
@@ -19,14 +19,14 @@ module.exports.getAllSubscriptions=async(req,res)=>{
 
 
  module.exports.getAllMySubscriptions=async(req,res)=>{
-   var EmailID = req.params.EmailID;
-   console.log(EmailID);
+   let emailID = req.params.emailID;
+   console.log(emailID);
   try {
 
-        var Result= await courseSchema.find({"Subscribers":{ $all :[EmailID]}});
+        let result= await courseSchema.find({"subscribers":{ $all :[emailID]}});
                
         res.statusCode = 200;
-        res.send(Result);
+        res.send(result);
         
   } catch (err) {
      res.statusCode=500;

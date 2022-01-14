@@ -6,9 +6,9 @@ const Course = require('../models/course');
 module.exports.getAllCourses=async (req,res)=>{
   try {
    
-    var Courses =await  Course.find({});
-    console.log(Courses);
-    res.send(Courses);
+    let courses =await  Course.find({});
+    console.log(courses);
+    res.send(courses);
   } catch (err) {
      res.statusCode=500;
      res.send(err.message); console.error(err.message)
@@ -19,14 +19,14 @@ module.exports.getAllCourses=async (req,res)=>{
 
 module.exports.getAllCoursesOfTrainer=async (req,res)=>{
   
-  var TrainerID=req.params.TrainerID;
-  console.log(TrainerID);
+  let trainerID=req.params.trainerID;
+  console.log(trainerID);
   try {
    
-        var Result = await Course.find({"Trainer":TrainerID});
+        let result = await Course.find({"trainer":trainerID});
                 
         res.statusCode = 200;
-        res.send(Result);
+        res.send(result);
        
         
    
@@ -40,39 +40,39 @@ module.exports.getAllCoursesOfTrainer=async (req,res)=>{
 
 
 module.exports.subscribe=async (req,res)=>{
-  var CourseID= req.params.CourseID;
-  var EmailID= req.params.EmailID;
+  let courseID= req.params.courseID;
+  let emailID= req.params.emailID;
   
-  console.log(EmailID);
+  console.log(emailID);
 
-  var SelectedCourse = await Course.findById(CourseID); 
-  var UpdatedObject =JSON.parse(JSON.stringify(SelectedCourse));
-  if(!UpdatedObject.Subscribers.includes(EmailID)) UpdatedObject.Subscribers.push(EmailID);
+  let selectedCourse = await Course.findById(courseID); 
+  let updatedObject =JSON.parse(JSON.stringify(selectedCourse));
+  if(!updatedObject.subscribers.includes(emailID)) updatedObject.subscribers.push(emailID);
 
 
-  delete UpdatedObject._id;
-  var Result= await Course.updateOne(SelectedCourse,UpdatedObject);
-   console.log(Result);
+  delete updatedObject._id;
+  let result= await Course.updateOne(selectedCourse,updatedObject);
+   console.log(result);
 
-  res.send(Result);
+  res.send(result);
   
 }
 
 
 module.exports.unSubscribe=async(req,res)=>{
-  var CourseID= req.params.CourseID;
-  var EmailID= req.params.EmailID;
+  let courseID= req.params.courseID;
+  let emailID= req.params.emailID;
  
-  var SelectedCourse = await Course.findById(CourseID); 
-  var UpdatedObject =JSON.parse(JSON.stringify(SelectedCourse));
-  if(UpdatedObject.Subscribers.includes(EmailID)) 
-    UpdatedObject.Subscribers.splice(UpdatedObject.Subscribers.indexOf(EmailID),1);
+  let selectedCourse = await Course.findById(courseID); 
+  let updatedObject =JSON.parse(JSON.stringify(selectedCourse));
+  if(updatedObject.subscribers.includes(emailID)) 
+    updatedObject.subscribers.splice(updatedObject.subscribers.indexOf(emailID),1);
 
-  delete UpdatedObject._id;
-  var Result= await Course.updateOne(SelectedCourse,UpdatedObject);
-   console.log(Result);
+  delete updatedObject._id;
+  let result= await Course.updateOne(selectedCourse,updatedObject);
+   console.log(result);
 
-  res.send(Result);
+  res.send(result);
 
  
 }
@@ -80,36 +80,36 @@ module.exports.unSubscribe=async(req,res)=>{
 
 
 module.exports.searchCourseByName = async (req,res)=>{
-   var Keyword= req.params.Keyword;
-   console.log(req.params.Keyword);
-   var query=new RegExp(Keyword, 'i');
+   let keyword= req.params.keyword;
+   console.log(req.params.keyword);
+   let query=new RegExp(keyword, 'i');
   
-   var Courses =await Course.find({"CourseName": query});
-        res.send(Courses);
+   let courses =await Course.find({"courseName": query});
+        res.send(courses);
        
 }
  
 module.exports.searchCourseByID=async(req,res)=>{
-    var id= req.params.id;
+    let id= req.params.id;
     console.log(id);
-    var Result = await Course.findById(id);
-    res.send(Result);
+    let result = await Course.findById(id);
+    res.send(result);
 }
 
 module.exports.create=async (req,res)=>{
-    var record = req.body; 
+    let record = req.body; 
     console.log(record);
-    var Result = await Course.create(record);
-    res.send(Result);
+    let result = await Course.create(record);
+    res.send(result);
 
 }
 
 
 module.exports.delete=async (req,res)=>{
 
-  var id = req.params.id;
+  let id = req.params.id;
   console.log(id);
-  var Result = await Course.deleteOne({"_id": id });
-  res.send(Result);
+  let result = await Course.deleteOne({"_id": id });
+  res.send(result);
 
 }

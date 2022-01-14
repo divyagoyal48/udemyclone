@@ -5,17 +5,17 @@ const studentSchema = require('../models/student');
 
 module.exports.getAllStudents=async (req,res)=>{
 console.log("asdasdasd");
-  var Results = await studentSchema.find({});
-  return Results;
+  let results = await studentSchema.find({});
+  return results;
 };
 
 module.exports.login=async (req,res)=>{
  
-  var SearchObject = req.body;
-  var Student = await studentSchema.findOne(SearchObject);
+  let searchObject = req.body;
+  let student = await studentSchema.findOne(searchObject);
 
-        if(Student.length==0) return res.send(null);
-        else {res.statusCode = 200;res.send(Student);}
+        if(student.length==0) return res.send(null);
+        else {res.statusCode = 200;res.send(student);}
 };
 
 
@@ -23,24 +23,24 @@ module.exports.login=async (req,res)=>{
 
 
 module.exports.searchStudentByID=async (req,res)=>{
-    var id= req.params.id;
+    let id= req.params.id;
    
-    var Student = await studentSchema.findById(id);
+    let student = await studentSchema.findById(id);
 
-    res.send(Student);
+    res.send(student);
 }
 
 module.exports.create=async(req,res)=>{
-    var record = req.body;
+    let record = req.body;
     delete record.REPWD;
-    var Result =await studentSchema.create(record);
-    res.send(Result);
+    let result =await studentSchema.create(record);
+    res.send(result);
 
 }
 
 module.exports.delete=async(req,res)=>{
-    var id = req.params.id;
+    let id = req.params.id;
 
-    var Result = await studentSchema.deleteOne({"_id": id });
-    res.send(Result);
+    let result = await studentSchema.deleteOne({"_id": id });
+    res.send(result);
 }
