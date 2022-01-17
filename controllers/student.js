@@ -4,16 +4,18 @@ const studentSchema = require('../models/student');
 
 
 module.exports.getAllStudents=async (req,res)=>{
-console.log("asdasdasd");
   let results = await studentSchema.find({});
-  return results;
+  return res.send(results);
 };
 
 module.exports.login=async (req,res)=>{
  
+  console.log( 'hello');
   let searchObject = req.body;
+  console.log(searchObject);
+ 
   let student = await studentSchema.findOne(searchObject);
-
+console.log(student);
         if(student.length==0) return res.send(null);
         else {res.statusCode = 200;res.send(student);}
 };

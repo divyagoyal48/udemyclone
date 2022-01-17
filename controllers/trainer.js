@@ -12,9 +12,10 @@ module.exports.getAllTrainers=async (req,res)=>{
 
  module.exports.login=async(req,res)=>{
   let searchObject = req.body;
+  console.log(searchObject);
   let trainer = await trainerSchema.findOne(searchObject);
-
-        if(trainer.length==0) return res.send(null);
+console.log(trainer);
+        if(!trainer) return res.send(null);
         else {res.statusCode = 200;res.send(trainer);}
 
 };

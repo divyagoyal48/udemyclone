@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
 const courseSchema = require('../models/course');
+const Student = require('../models/student');
 
 
 module.exports.getAllSubscriptions=async(req,res)=>{
@@ -20,10 +21,11 @@ module.exports.getAllSubscriptions=async(req,res)=>{
 
  module.exports.getAllMySubscriptions=async(req,res)=>{
    let emailID = req.params.emailID;
+   let student = await Student.findOne({email:emailID});
    console.log(emailID);
   try {
 
-        let result= await courseSchema.find({"subscribers":{ $all :[emailID]}});
+        let result= await courseSchema.find({"_id":{ $in :student.enrolledCourses}});
                
         res.statusCode = 200;
         res.send(result);
