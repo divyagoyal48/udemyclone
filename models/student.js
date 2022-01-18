@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const course=require("./course");
+
 
 
 const studentSchema=new mongoose.Schema({

@@ -10,6 +10,6 @@ router.get("/:courseid/:emailid",coursesController.unSubscribe);
 router.get("/:keyword",coursesController.searchCourseByName);
 router.get("/:id",coursesController.searchCourseByID);
 router.post("/",coursesController.create);
-router.get("/:id",coursesController.delete);
+router.delete("/:id",coursesController.delete);
 
 module.exports = router
